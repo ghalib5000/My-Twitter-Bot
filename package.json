@@ -1,0 +1,19 @@
+{
+  "name": "twitter_bot",
+  "version": "1.0.0",
+  "description": "Node js twitter bot to send auto direct message",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Youssouf El AZIZI",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^6.4.1",
+    "firebase-admin": "^8.4.0",
+    "image-downloader": "^3.5.0",
+    "twit": "^2.2.11",
+    "xhr": "^2.5.0",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
