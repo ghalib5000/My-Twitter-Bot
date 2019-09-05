@@ -1,5 +1,5 @@
 
-/*
+
 const T = require("./Twit.js");
 const my_user_name = require("../config").userName;
 const timeout = 1000 * 60 * 5; // timeout to send the message 5 min
@@ -23,7 +23,7 @@ const download = require('image-downloader');
 
 
 
-*/
+
 var firebaseConfig = {
 
   apiKey: "AIzaSyD0bo-YploXM_K63VwtgANHUZvef4Alwpo",
@@ -45,15 +45,24 @@ console.log("Initializing firebase...");
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
- //var database = firebase.database();
+ const database = firebase.database();
 
 
- // THE code that's giving me error
- let ref = firebase.database().ref();
+ let ref = database.ref();
 
+ function online(){
+ console.log("database going online...");
+ database.goOnline();
+ }
+ function offline(){
+ setTimeout(function()
+    {
+ console.log("database going offline...");
+ database.goOffline();
+    }, 10000
+    );
 
- 
-
+ }
 
 function img_downloader(img_number){
 const options = {
@@ -70,8 +79,6 @@ const options = {
  
 }
 
-
-
 //for matching the image in the database
 //if it exsists then get a  new image
 function image_updater(num)
@@ -82,33 +89,65 @@ console.log(num)
 v = "i"+num;
 var obj = {};
 obj[v] = num;
-ref.update(obj)
+ setTimeout(function()
+    {
+      ref.update(obj)
+    }, 8000
+    );
+
    
 // ref.update( {  v : num  })
 
 }
-function image_checker(num)
+async function image_checker(num)
 {
-   num = num;
- num = num.substr(0, num.length - 4);
-console.log(num)
+   num = await num.substr(0, num.length - 4);
+      console.log("image number is: "+num)
 
-ref.child("i"+num).on("value", function(value){
-  if (value.val() ==num) {
+   ref.child("i"+num).on("value", function(value){
+    
+    if (value.val() ==num) 
+    {
+      console.log("matched! "+num) ;
 
-     console.log("matched "+num) ;
-     return "matched"
+    
+     return "matched";
+   } 
+   else
+    {
+     console.log("not matched "+num);
+     return "not matched";
+ 
+  } 
+}
+   );
+}
+async function f() {
 
-  } else {
-    console.log("not matched "+num);
-    return "not matched"
-  }
+ 
+  let result = await image_checker("10.jpg"); // wait till the promise resolves (*)
+
+  console.log( result); // "done!"
+}
+
+f();
+    
   
-  });
+  offline();
 
-} 
 
-  //upload_random_image(images);
+/*
+async function f1() {
+
+ 
+}
+
+
+f1();
+*/
+
+
+// upload_random_image(images);
 
 /*
 
@@ -199,18 +238,22 @@ function random_from_array(images){
 
 //random image selecting function
 
-function upload_random_image(images){
+async function upload_random_image(images){
+  online();
   console.log('Opening an image...');
 
-  var random_image = random_from_array(images);
+   var random_image = await random_from_array(images);
 
-    while (image_checker(random_image.file)=="matched")
+  console.log("checking...");
+    while (image_checker(random_image.file))
      {
-       console.log("image number matched , searching for another image")
-      random_image = random_from_array(images);
+        console.log("image number matched , searching for another image")
+      random_image = await random_from_array(images);
     } 
+    
+    console.log("checking complete...");
 
-    img_downloader(random_image.file);
+     img_downloader(random_image.file);
 
     var image_path = "./img/"+random_image.file;
      console.log("final path is: "+image_path);
@@ -275,7 +318,7 @@ function upload_random_image(images){
 */
 console.log("now updating image number on the database");
 
-image_updater(random_image.file);
+await image_updater(random_image.file);
 console.log("done updating");
 
  setTimeout(function()
@@ -295,9 +338,9 @@ fs.unlink('./img/'+random_image.file , (err) => {
  }, 10000
  );
 
+
+offline();
 }
-
-
 
 
 
