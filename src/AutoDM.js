@@ -69,7 +69,22 @@ const AutoDM = () => {
 
       dest: './img/'+img_number                // Save to /path/to/dest/image.jpg
     }
+    
+    
     console.log("donwloading image...");
+      async function downloadIMG() {
+        try {
+          const { filename, image } = await download.image(options)
+          console.log(filename) // => /path/to/dest/image.jpg
+        } catch (e) {
+          console.error(e);
+          console.log("hi");
+        }
+      }
+       
+      downloadIMG()
+
+    /*
     console.log("url: ",options.url)
     console.log("dest: ",options.dest);
    download.image(options)
@@ -78,7 +93,9 @@ const AutoDM = () => {
       })
       .catch((err) =>{ console.error(err);
       console.log("here...");     });   
-     
+     */
+
+
   }
 
   function getFileNameWithoutExtension(filename){
