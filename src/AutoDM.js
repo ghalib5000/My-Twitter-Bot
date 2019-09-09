@@ -145,6 +145,8 @@ upload_random_image(images);
 
 upload_random_image(images);
 
+
+
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
   }
