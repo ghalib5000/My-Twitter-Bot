@@ -70,12 +70,11 @@ const AutoDM = () => {
       dest: './img/'                // Save to /path/to/dest/image.jpg
     }
     console.log("donwloading image");
-   let v =  await download.image(options)
+   download.image(options)
       .then(({ filename, image }) => {
         console.log('Saved to', filename)  // Saved to /path/to/dest/image.jpg
       })
       .catch((err) => console.error(err));
-      return v;
   }
 
   function getFileNameWithoutExtension(filename){
@@ -184,10 +183,13 @@ console.log("image downloaded");
     console.log("final path is: " + image_path);
 
 
-    
-    
+    setTimeout(function()
+    {
+      
       b64content = fs.readFileSync(image_path.toString() , { encoding: 'base64' });
+
   console.log('Uploading an image...');
+
 
   T.post('media/upload', { media_data: b64content }, function (err, data, response) {
     if (err){
@@ -226,10 +228,15 @@ console.log("image downloaded");
           }
         }
       );
-    }});
-    }
+    }}
+    );
+     
+  }, 10000
+  );
+      setTimeout( function()
+      {
+      
 
-    {   
      console.log("now updating image number on the database");
      image_updater(random_image.file).then(function()
      {  
@@ -246,8 +253,10 @@ console.log("image downloaded");
      {
      offline();
     }); 
-  }
-
+  
+ 
+}, 10000
+);
     
   }
   /*
