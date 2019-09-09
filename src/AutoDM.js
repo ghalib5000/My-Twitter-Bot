@@ -63,19 +63,19 @@ const AutoDM = () => {
 
   }
 
-  function img_downloader(img_number) {
+  async function img_downloader(img_number) {
     const options = {
       url: "https://firebasestorage.googleapis.com/v0/b/glb-twitter-bot.appspot.com/o/" + img_number + "?alt=media",
 
       dest: './img/'                // Save to /path/to/dest/image.jpg
     }
     console.log("donwloading image");
-    download.image(options)
+    await download.image(options)
       .then(({ filename, image }) => {
         console.log('Saved to', filename)  // Saved to /path/to/dest/image.jpg
       })
       .catch((err) => console.error(err));
-
+      return;
   }
 
   function getFileNameWithoutExtension(filename){
@@ -83,7 +83,7 @@ const AutoDM = () => {
   }
   //for matching the image in the database
   //if it exsists then get a  new image
-  function image_updater(filename) {
+  async function image_updater(filename) {
     num = getFileNameWithoutExtension(filename);
     console.log(num)
     v = "i" + num;
@@ -95,110 +95,44 @@ const AutoDM = () => {
     );
     // ref.update( {  v : num  })
   }
-  async function checkIfImageExists(filename) {
+  async function checkIfImageExists(filename)
+   {
     filename = getFileNameWithoutExtension(filename);
     let dbfileName = (await ref.child("i"+filename).once('value')).val();
     return dbfileName==filename;
   }
+
   async function testFunction() {
 
+    let img =   random_from_array(images).file;
+    console.log("img name is : "+img);
+    let result = await checkIfImageExists(img); // wait till the promise resolves (*)
+    console.log(result);
+    while(result)
+    {
+      console.log("image "+img+" found!, searching for another image...");
+      img =  random_from_array(images).file;
+      result = await checkIfImageExists(img);
+      
+    }
+    console.log("image not found, preparing to download image...");
+    console.log("new name is :"+img);
+    img_downloader(img);
+    console.log("image downloaded");
+    image_updater(img);
 
-    let result = await checkIfImageExists("10.jpg"); // wait till the promise resolves (*)
-    console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
+    console.log("done...");
+    //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
   }
 
-  testFunction();
 
-
-  offline();
-
-
-  /*
-  async function f1() {
-  
-   
-  }
-  
-  
-  f1();
-  */
-
-
-  // upload_random_image(images);
-
-  /*
-  
-  {
-  ref.on("value", function(snapshot) {
-     console.log(snapshot.val());
-  
-  }, function (error) {
-     console.log("Error: " + error.code);
-  });
-  }
-  */
-  /*
-  
-    firebase.database().ref("/Done_Images/hello/img").set({
-      img: "6742",
-    });
-  
-  
-    */
-
-
-  //var defaultStorage = firebase.storage();
-
-  // Create a storage reference from our storage service
-  //var storageRef = defaultStorage.ref();
-
-  // This can be downloaded directly:
-
-  /*
-  var xhr = new XMLHttpRequest();
-  xhr.responseType = 'blob';
-  xhr.onload = function(event) {
-    var blob = xhr.response;
-  };
-  xhr.open('GET', url);
-  xhr.send();
-
-}*/
 
   console.log("Starting... 🚀🚀🚀");
 
-  /*
-  img_downloader(random_image.file);
-  image_path = './img/'+random_image.file;
-  console.log(image_path);
-  */
-
-  //newmet();
-  /*
-  //uploading method
-  fs.readdir('./img', function(err, files) 
-  {
-    if (err){
-     console.log(err);
-    }
-    else{
-      var images = [];
-      files.forEach(function(f) {
-        images.push(f);
-      });
-  
-      setInterval(function()
-      {
-        upload_random_image(images);
-      }, 100000
-      );
-    }
-  });
-  
-  */
 
   //logger();
   //trying();
+
   /*
 setInterval(function()
 {
@@ -209,6 +143,8 @@ upload_random_image(images);
 */
 
 
+upload_random_image(images);
+
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
   }
@@ -217,34 +153,43 @@ upload_random_image(images);
 
   async function upload_random_image(images) {
     online();
+
     console.log('Opening an image...');
 
-    var random_image = await random_from_array(images);
-
-    console.log("checking...");
-    while (image_checker(random_image.file)) {
-      console.log("image number matched , searching for another image")
-      random_image = await random_from_array(images);
+   
+    let random_image = random_from_array(images);
+    console.log("img name is : "+random_image.file);
+    let result = await checkIfImageExists(random_image.file); // wait till the promise resolves (*)
+    console.log(result);
+    while(result)
+    {
+      console.log("image "+random_image.file+" found!, searching for another image...");
+      
+      random_image = random_from_array(images);
+      result = await checkIfImageExists(random_image.file);
+      
     }
+    console.log("image not found, preparing to download image...");
+    console.log("new name is :"+random_image.file);
+    img_downloader(random_image.file).then(function ()
+    {
+console.log("image downloaded");
 
-    console.log("checking complete...");
+    //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
 
-    img_downloader(random_image.file);
 
     var image_path = "./img/" + random_image.file;
     console.log("final path is: " + image_path);
 
 
-    /*
-
-     setTimeout(function()
-     {
+    
     
       b64content = fs.readFileSync(image_path.toString() , { encoding: 'base64' });
   console.log('Uploading an image...');
 
   T.post('media/upload', { media_data: b64content }, function (err, data, response) {
     if (err){
+
       console.log('ERROR:');
       console.log(err);
     }
@@ -253,9 +198,6 @@ upload_random_image(images);
       console.log('Now tweeting it...');
 
  
-
-
-
     var tweet_text = random_from_array([
           'New picture!',
           'Check this out!',
@@ -287,39 +229,36 @@ upload_random_image(images);
   }
 
  )
+ ;
+    }).finally(function()
+    {
+      
+   
+     console.log("now updating image number on the database");
 
-}, 100000
-);
+     image_updater(random_image.file).then(function()
+     {
+  
+      console.log("done updating");
+  
+    console.log("removing " + random_image.file)
+        fs.unlink('./img/' + random_image.file, (err) => 
+       {
+          if (err) {
+            console.error(err)
+            return
+          }
+        })
+  
+     }).then(function()
+     {
+     offline();
+    }); 
+      
+    }) ;
 
-*/
-    console.log("now updating image number on the database");
-
-    await image_updater(random_image.file);
-    console.log("done updating");
-
-    setTimeout(function () {
-
-      console.log("removing " + random_image.file)
-      fs.unlink('./img/' + random_image.file, (err) => {
-        if (err) {
-          console.error(err)
-          return
-        }
-
-        //file removed
-      })
-
-
-    }, 10000
-    );
-
-
-    offline();
+    
   }
-
-
-
-
   /*
     //the main code for auto tweeting
     T.post(
