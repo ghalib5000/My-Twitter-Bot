@@ -70,6 +70,8 @@ const AutoDM = () => {
       dest: './img/'                // Save to /path/to/dest/image.jpg
     }
     console.log("donwloading image...");
+    console.log("url: ",options.url)
+    console.log("dest: ",options.dest);
    download.image(options)
       .then(({ filename, image }) => {
         console.log('Saved to', filename) ;   // Saved to /path/to/dest/image.jpg
