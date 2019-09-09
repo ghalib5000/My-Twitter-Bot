@@ -67,7 +67,7 @@ const AutoDM = () => {
     const options = {
       url: "https://firebasestorage.googleapis.com/v0/b/glb-twitter-bot.appspot.com/o/" + img_number + "?alt=media",
 
-      dest: '/img/'                // Save to /path/to/dest/image.jpg
+      dest: './img/'                // Save to /path/to/dest/image.jpg
     }
     console.log("donwloading image...");
    download.image(options)
@@ -144,10 +144,11 @@ upload_random_image(images);
 */
 
 
-upload_random_image(images);
+//upload_random_image(images);
 
 
 
+img_downloader("10.jpg");
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
   }
@@ -260,6 +261,7 @@ upload_random_image(images);
 );
     
   }
+  offline();
   /*
     //the main code for auto tweeting
     T.post(
