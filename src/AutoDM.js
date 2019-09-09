@@ -179,7 +179,7 @@ upload_random_image(images);
 
       console.log("image downloaded");
 
-    image_path = "./img/" +random_image.file ;
+    image_path = "../img/" +random_image.file ;
     console.log("final path is: " + image_path);
    
   
