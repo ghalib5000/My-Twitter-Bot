@@ -176,7 +176,7 @@ upload_random_image(images);
     console.log("image not found, preparing to download image...");
 
     console.log("new name is :"+random_image.file);
-    img_downloader("10.jpg");
+    img_downloader(random_image.file);
 
       console.log("image downloaded");
 
