@@ -194,7 +194,7 @@ upload_random_image(images);
       result = await checkIfImageExists(random_image.file);
       
     }
-    var image_path = "./img/"
+    var image_path = "./"
     console.log("image not found, preparing to download image...");
 
     console.log("new name is :"+random_image.file);
@@ -202,7 +202,7 @@ upload_random_image(images);
 
       console.log("image downloaded");
 
-    image_path = "./img/" +random_image.file ;
+    image_path = "./" +random_image.file ;
     console.log("final path is: " + image_path.toString());
    
   
@@ -265,7 +265,7 @@ upload_random_image(images);
      {  
       console.log("done updating");  
     console.log("removing " + random_image.file)
-        fs.unlink('./img/' + random_image.file, (err) => 
+        fs.unlink('./' + random_image.file, (err) => 
        {
           if (err) {
             console.error(err)
