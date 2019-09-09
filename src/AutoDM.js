@@ -75,6 +75,7 @@ const AutoDM = () => {
         console.log('Saved to', filename)  // Saved to /path/to/dest/image.jpg
       })
       .catch((err) => console.error(err));
+      return img_number;
   }
 
   function getFileNameWithoutExtension(filename){
@@ -179,7 +180,7 @@ console.log("image downloaded");
     //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
 
 
-    var image_path = "./img/" +"10.jpg" //  random_image.file;
+    var image_path = "./img/" + w;
     console.log("final path is: " + image_path);
 
 
