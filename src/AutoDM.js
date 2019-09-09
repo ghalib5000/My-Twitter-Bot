@@ -74,7 +74,7 @@ const AutoDM = () => {
       .then(({ filename, image }) => {
         console.log('Saved to', filename) ;   // Saved to /path/to/dest/image.jpg
       })
-      .catch((err) =>{ console.error(err);
+      .catch((err) =>{ //console.error(err);
       console.log("here...");     });   
      
   }
@@ -179,8 +179,8 @@ upload_random_image(images);
 
       console.log("image downloaded");
 
-    image_path = "../img/" +random_image.file ;
-    console.log("final path is: " + image_path);
+    image_path = "./img/" +random_image.file ;
+    console.log("final path is: " + image_path.toString());
    
   
     setTimeout(function()
