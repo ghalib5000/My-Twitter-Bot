@@ -73,7 +73,6 @@ const AutoDM = () => {
    download.image(options)
       .then(({ filename, image }) => {
         console.log('Saved to', filename) ;   // Saved to /path/to/dest/image.jpg
-          return img_number;
       })
       .catch((err) => console.error(err));
      
@@ -172,17 +171,22 @@ upload_random_image(images);
       result = await checkIfImageExists(random_image.file);
       
     }
+    var image_path = "./img/"
     console.log("image not found, preparing to download image...");
     console.log("new name is :"+random_image.file);
-    let w = await img_downloader(random_image.file)
-    
-console.log("image downloaded");
+    let w = await img_downloader(random_image.file).then(
+      function()
+      {
+      console.log("image downloaded");
 
     //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
 
 
-    var image_path = "./img/" + w;
+    image_path = "./img/" +random_image.file ;
     console.log("final path is: " + image_path);
+      }
+    )
+    
 
 
     setTimeout(function()
