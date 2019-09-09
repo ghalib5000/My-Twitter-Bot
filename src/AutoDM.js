@@ -70,12 +70,12 @@ const AutoDM = () => {
       dest: './img/'                // Save to /path/to/dest/image.jpg
     }
     console.log("donwloading image");
-    await download.image(options)
+   let v =  await download.image(options)
       .then(({ filename, image }) => {
         console.log('Saved to', filename)  // Saved to /path/to/dest/image.jpg
       })
       .catch((err) => console.error(err));
-      return;
+      return v;
   }
 
   function getFileNameWithoutExtension(filename){
@@ -173,7 +173,7 @@ upload_random_image(images);
     }
     console.log("image not found, preparing to download image...");
     console.log("new name is :"+random_image.file);
-    img_downloader(random_image.file).then(function ()
+    await img_downloader(random_image.file).then(function ()
     {
 console.log("image downloaded");
 
@@ -232,17 +232,15 @@ console.log("image downloaded");
 
  )
  ;
-    }).finally(function()
-    {
-      
-   
-     console.log("now updating image number on the database");
+    });
+    
+  
 
+    {   
+     console.log("now updating image number on the database");
      image_updater(random_image.file).then(function()
-     {
-  
-      console.log("done updating");
-  
+     {  
+      console.log("done updating");  
     console.log("removing " + random_image.file)
         fs.unlink('./img/' + random_image.file, (err) => 
        {
@@ -250,14 +248,12 @@ console.log("image downloaded");
             console.error(err)
             return
           }
-        })
-  
+        })  
      }).then(function()
      {
      offline();
     }); 
-      
-    }) ;
+  }
 
     
   }
