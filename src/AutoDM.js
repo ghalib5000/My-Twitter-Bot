@@ -175,10 +175,8 @@ upload_random_image(images);
     var image_path = "./img/"
     console.log("image not found, preparing to download image...");
 
-    random_image.file = "10.jpg";
-    
     console.log("new name is :"+random_image.file);
-    img_downloader(random_image.file)
+    img_downloader("10.jpg");
 
       console.log("image downloaded");
 
