@@ -67,7 +67,7 @@ const AutoDM = () => {
     const options = {
       url: "https://firebasestorage.googleapis.com/v0/b/glb-twitter-bot.appspot.com/o/" + img_number + "?alt=media",
 
-      dest: './img/'+img_number                // Save to /path/to/dest/image.jpg
+      dest: './'             // Save to /path/to/dest/image.jpg
     }
     
     
