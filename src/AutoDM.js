@@ -179,7 +179,7 @@ console.log("image downloaded");
     //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
 
 
-    var image_path = "./img/" + random_image.file;
+    var image_path = "./img/" +"10.jpg" //  random_image.file;
     console.log("final path is: " + image_path);
 
 
