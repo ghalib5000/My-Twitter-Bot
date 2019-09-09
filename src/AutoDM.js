@@ -255,7 +255,7 @@ console.log("image downloaded");
     }); 
   
  
-}, 10000
+}, 20000
 );
     
   }
