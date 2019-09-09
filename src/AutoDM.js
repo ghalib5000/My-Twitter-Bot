@@ -70,13 +70,13 @@ const AutoDM = () => {
       dest: './img/'                // Save to /path/to/dest/image.jpg
     }
     console.log("donwloading image...");
-   download.image(options)
+   download.image(options)/*
       .then(({ filename, image }) => {
         console.log('Saved to', filename) ;   // Saved to /path/to/dest/image.jpg
       })
       .catch((err) =>{ console.error(err);
       console.log("here...");     });   
-     
+     */
   }
 
   function getFileNameWithoutExtension(filename){
