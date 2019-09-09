@@ -67,11 +67,13 @@ const AutoDM = () => {
     const options = {
       url: "https://firebasestorage.googleapis.com/v0/b/glb-twitter-bot.appspot.com/o/" + img_number + "?alt=media",
 
-      dest: './'             // Save to /path/to/dest/image.jpg
+      dest: './img/'             // Save to /path/to/dest/image.jpg
     }
     
     
     console.log("donwloading image...");
+    console.log("url: ",options.url);
+    console.log("dest: ",options.dest);
       async function downloadIMG() {
         try {
           const { filename, image } = await download.image(options)
