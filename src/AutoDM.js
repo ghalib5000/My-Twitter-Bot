@@ -173,8 +173,8 @@ upload_random_image(images);
     }
     console.log("image not found, preparing to download image...");
     console.log("new name is :"+random_image.file);
-     img_downloader(random_image.file).then(function ()
-    {
+    let w = await img_downloader(random_image.file)
+    
 console.log("image downloaded");
 
     //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
@@ -226,15 +226,8 @@ console.log("image downloaded");
           }
         }
       );
+    }});
     }
-
-  }
-
- )
- ;
-    });
-    
-  
 
     {   
      console.log("now updating image number on the database");
