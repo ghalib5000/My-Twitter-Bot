@@ -63,20 +63,20 @@ const AutoDM = () => {
 
   }
 
-  async function img_downloader(img_number) {
+   function img_downloader(img_number) {
     const options = {
       url: "https://firebasestorage.googleapis.com/v0/b/glb-twitter-bot.appspot.com/o/" + img_number + "?alt=media",
 
       dest: './img/'                // Save to /path/to/dest/image.jpg
     }
     console.log("donwloading image...");
-   download.image(options)/*
+   download.image(options)
       .then(({ filename, image }) => {
         console.log('Saved to', filename) ;   // Saved to /path/to/dest/image.jpg
       })
       .catch((err) =>{ console.error(err);
       console.log("here...");     });   
-     */
+     
   }
 
   function getFileNameWithoutExtension(filename){
@@ -175,21 +175,14 @@ upload_random_image(images);
     var image_path = "./img/"
     console.log("image not found, preparing to download image...");
     console.log("new name is :"+random_image.file);
-    let w = await img_downloader(random_image.file).then(
-      function()
-      {
+    img_downloader(random_image.file)
+
       console.log("image downloaded");
-
-    //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
-
 
     image_path = "./img/" +random_image.file ;
     console.log("final path is: " + image_path);
-      }
-    )
-    
-
-
+   
+  
     setTimeout(function()
     {
       
