@@ -173,7 +173,7 @@ upload_random_image(images);
     }
     console.log("image not found, preparing to download image...");
     console.log("new name is :"+random_image.file);
-    await img_downloader(random_image.file).then(function ()
+     img_downloader(random_image.file).then(function ()
     {
 console.log("image downloaded");
 
