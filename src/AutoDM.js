@@ -160,10 +160,9 @@ upload_random_image(images);
 const job = new CronJob('*/5 * * * * *', function() {
 	const d = new Date();
   console.log('Every Fifth date :', d);
-  //upload_random_image(images);
+  upload_random_image(images);
 });
 job.start();
-
 
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
