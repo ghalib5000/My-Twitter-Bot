@@ -99,7 +99,9 @@ const AutoDM = () => {
     v = "i" + num;
     var obj = {};
     obj[v] = num;
+    online();
     setTimeout(function () {
+
       ref.update(obj)
     }, 8000
     );
@@ -155,8 +157,8 @@ upload_random_image(images);
 
 //upload_random_image(images);
 
-console.log('Before job instantiation');
-const job = new CronJob('* 25 10 */18  * *', function() {
+console.log('Before job instantiation');  //'5 29 10 18  * *'
+const job = new CronJob('5 * * *  * *', function() {
 	const d = new Date();
   console.log('Every Fifth date :', d);
   upload_random_image(images);
