@@ -7,6 +7,8 @@ var fs = require("fs");
 var path = require("path");
 var timer = 10000;
 
+var CronJob = require('cron').CronJob;
+
 
 images = require('./images.js');
 var storage = require("firebase/storage");
@@ -83,21 +85,7 @@ const AutoDM = () => {
           console.log("hi");
         }
       }
-       
       downloadIMG()
-
-    /*
-    console.log("url: ",options.url)
-    console.log("dest: ",options.dest);
-   download.image(options)
-      .then(({ filename, image }) => {
-        console.log('Saved to', filename) ;   // Saved to /path/to/dest/image.jpg
-      })
-      .catch((err) =>{ console.error(err);
-      console.log("here...");     });   
-     */
-
-
   }
 
   function getFileNameWithoutExtension(filename){
@@ -165,9 +153,16 @@ upload_random_image(images);
 */
 
 
-upload_random_image(images);
+//upload_random_image(images);
 
-
+console.log('Before job instantiation');
+const job = new CronJob('20 10 */18  * * *', function() {
+	const d = new Date();
+  console.log('Every Fifth date :', d);
+  upload_random_image(images);
+});
+console.log('After job instantiation');
+job.start();
 
 
   function random_from_array(images) {
