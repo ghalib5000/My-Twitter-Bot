@@ -156,14 +156,12 @@ upload_random_image(images);
 
 
 //upload_random_image(images);
-
-console.log('Before job instantiation');  //'5 29 10 18  * *'
-const job = new CronJob('5 * * *  * *', function() {
+ //'5 29 10 18  * *'
+const job = new CronJob('*/5 * * * * *', function() {
 	const d = new Date();
   console.log('Every Fifth date :', d);
-  upload_random_image(images);
+  //upload_random_image(images);
 });
-console.log('After job instantiation');
 job.start();
 
 
