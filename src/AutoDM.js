@@ -156,10 +156,11 @@ upload_random_image(images);
 
 
 //upload_random_image(images);
- //'5 29 10 18  * *'
-const job = new CronJob('*/50 * * * * *', function() {
+ //for every sunday at 7:15 :    15 7 * * */7
+
+const job = new CronJob('15 7 * * */7', function() {
 	const d = new Date();
-  console.log('Every Fifth date :', d);
+  console.log('cron started at :', d);
   upload_random_image(images);
 });
 job.start();
