@@ -158,7 +158,7 @@ upload_random_image(images);
 //upload_random_image(images);
  //for every sunday at 7:15 :    15 7 * * 0
 
-const job = new CronJob('25 15 * * 0', function() {
+const job = new CronJob('30 3 * * 0', function() {
 	const d = new Date();
   console.log('cron started at :', d);
   upload_random_image(images);
