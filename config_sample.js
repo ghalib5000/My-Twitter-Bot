@@ -10,3 +10,5 @@ module.exports = {
   twitterApp,
   userName:"your twitter username",//  process.env.USERNAME
 };
+
+//rename this frile from cinfig_sample.js to confiog.js after adding in your credentials to connect to twitter bot
