@@ -7,6 +7,11 @@ var fs = require("fs");
 var path = require("path");
 var timer = 10000;
 
+var gpio = require('rpi-gpio');
+
+const led = require('./led');
+
+
 var CronJob = require('cron').CronJob;
 
 
@@ -157,14 +162,18 @@ upload_random_image(images);
 
 //upload_random_image(images);
  //for every sunday at 7:15 :    15 7 * * 0
-
-const job = new CronJob('35 15 * * 0', function() {
+ 
+ /*
+const job = new CronJob('15 7 * * 0', function() {
 	const d = new Date();
   console.log('cron started at :', d);
   upload_random_image(images);
 });
 job.start();
+*/
 
+  upload_random_image(images);
+  
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
   }
@@ -204,12 +213,12 @@ job.start();
     setTimeout(function()
     {
       
-      b64content = fs.readFileSync(image_path.toString() , { encoding: 'base64' });
-
+    var b64content = fs.readFileSync(image_path.toString() , { encoding: 'base64' });
+     
   console.log('Uploading an image...');
 
-
-  T.post('media/upload', { media_data: b64content }, function (err, data, response) {
+ T.post('media/upload', { media_data: b64content }, function (err, data, response) 
+  {
     if (err){
 
       console.log('ERROR:');
@@ -276,7 +285,7 @@ job.start();
 }, 20000
 );
     
-  }
+ }
   offline();
   /*
     //the main code for auto tweeting
