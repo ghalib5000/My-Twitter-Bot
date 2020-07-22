@@ -6,10 +6,7 @@ const timeout = 1000 * 60 * 5; // timeout to send the message 5 min
 var fs = require("fs");
 var path = require("path");
 var timer = 10000;
-
-var gpio = require('rpi-gpio');
-
-const led = require('./led');
+const led_start = require("./led_start.js");
 
 
 var CronJob = require('cron').CronJob;
@@ -146,7 +143,6 @@ const AutoDM = () => {
 
   console.log("Starting... 🚀🚀🚀");
 
-
   //logger();
   //trying();
 
@@ -173,6 +169,7 @@ job.start();
 */
 
   upload_random_image(images);
+  
   
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
@@ -223,6 +220,7 @@ job.start();
 
       console.log('ERROR:');
       console.log(err);
+      led_start(7,100,10);
     }
     else{
       console.log('Image uploaded!');

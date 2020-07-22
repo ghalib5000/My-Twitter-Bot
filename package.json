@@ -15,6 +15,7 @@
     "image-downloader": "^3.5.0",
     "twit": "^2.2.11",
     "xhr": "^2.5.0",
-    "xmlhttprequest": "^1.8.0"
+    "xmlhttprequest": "^1.8.0",
+    "rpi-gpio": "^2.1.7"
   }
 }
