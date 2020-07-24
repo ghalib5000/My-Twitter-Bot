@@ -1,5 +1,3 @@
-
-
 const T = require("./Twit.js");
 const my_user_name = require("../config").userName;
 const timeout = 1000 * 60 * 5; // timeout to send the message 5 min
@@ -7,11 +5,7 @@ var fs = require("fs");
 var path = require("path");
 var timer = 10000;
 const led_start = require("./led_start.js");
-
-
-var CronJob = require('cron').CronJob;
-
-
+//var CronJob = require('cron').CronJob;
 images = require('./images.js');
 var storage = require("firebase/storage");
 // Add the Firebase products that you want to use
@@ -19,15 +13,12 @@ require("firebase/auth");
 require("firebase/firestore");
 //const request = require('request');
 fb_auth = "https://glb-twitter-bot.firebaseapp.com/__/auth/handler"
-
 XMLHttpRequest = require('xmlhttprequest').XMLHttpRequest;
-
-
 const download = require('image-downloader');
+var firebase = require("firebase");
 
 
-
-
+//Add your own firebase variables here
 var firebaseConfig = {
 
   apiKey: "AIzaSyD0bo-YploXM_K63VwtgANHUZvef4Alwpo",
@@ -41,19 +32,12 @@ var firebaseConfig = {
 
 
 
-
-var firebase = require("firebase");
-
 const AutoDM = () => {
   console.log("Initializing firebase...");
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-
   const database = firebase.database();
-
-
   let ref = database.ref();
-
   function online() {
     console.log("database going online...");
     database.goOnline();
@@ -64,7 +48,6 @@ const AutoDM = () => {
       database.goOffline();
     }, 10000
     );
-
   }
 
    function img_downloader(img_number) {
@@ -103,7 +86,6 @@ const AutoDM = () => {
     obj[v] = num;
     online();
     setTimeout(function () {
-
       ref.update(obj)
     }, 8000
     );
@@ -127,14 +109,12 @@ const AutoDM = () => {
       console.log("image "+img+" found!, searching for another image...");
       img =  random_from_array(images).file;
       result = await checkIfImageExists(img);
-      
     }
     console.log("image not found, preparing to download image...");
     console.log("new name is :"+img);
     img_downloader(img);
     console.log("image downloaded");
     image_updater(img);
-
     console.log("done...");
     //console.log(result ? "Image exists": "Image doesn't exist"); // "done!"
   }
@@ -142,19 +122,15 @@ const AutoDM = () => {
 
 
   console.log("Starting... 🚀🚀🚀");
-
   //logger();
   //trying();
-
   /*
 setInterval(function()
 {
 upload_random_image(images);
 }, timer    timeout*6
 );
-
 */
-
 
 //upload_random_image(images);
  //for every sunday at 7:15 :    15 7 * * 0
@@ -169,20 +145,14 @@ job.start();
 */
 
   upload_random_image(images);
-  
-  
+   
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
   }
-
   //random image selecting function
-
   async function upload_random_image(images) {
     online();
-
-    console.log('Opening an image...');
-
-   
+    console.log('Opening an image...');   
     let random_image = random_from_array(images);
     console.log("img name is : "+random_image.file);
     let result = await checkIfImageExists(random_image.file); // wait till the promise resolves (*)
@@ -190,42 +160,41 @@ job.start();
     while(result)
     {
       console.log("image "+random_image.file+" found!, searching for another image...");
-      
       random_image = random_from_array(images);
-      result = await checkIfImageExists(random_image.file);
-      
+      result = await checkIfImageExists(random_image.file);      
     }
     var image_path = "./"
     console.log("image not found, preparing to download image...");
-
     console.log("new name is :"+random_image.file);
     img_downloader(random_image.file);
-
       console.log("image downloaded");
-
     image_path = "./" +random_image.file ;
-    console.log("final path is: " + image_path.toString());
-   
-  
+    console.log("final path is: " + image_path.toString()); 
     setTimeout(function()
     {
-      
-    var b64content = fs.readFileSync(image_path.toString() , { encoding: 'base64' });
-     
-  console.log('Uploading an image...');
-
- T.post('media/upload', { media_data: b64content }, function (err, data, response) 
+    var b64content = fs.readFileSync(image_path.toString() , { encoding: 'base64' });     
+    console.log('Uploading an image...');
+    T.post('media/upload', { media_data: b64content }, function (err, data, response) 
   {
     if (err){
 
       console.log('ERROR:');
       console.log(err);
       led_start(7,100,10);
+    
+      //code to remove the image incase an error occurs
+      console.log("removing " + random_image.file)
+      fs.unlink('./' + random_image.file, (err) => 
+     {
+        if (err) {
+          console.error(err)
+          return
+        }
+      });
     }
     else{
       console.log('Image uploaded!');
       console.log('Now tweeting it...');
-
  
     var tweet_text = random_from_array([
           'New picture!',
@@ -253,14 +222,9 @@ job.start();
           }
         }
       );
-    }}
-    );
-     
-  }, 10000
-  );
+        //funtion to remove the image and update the db number
       setTimeout( function()
-      {
-      
+      {      
 
      console.log("now updating image number on the database");
      image_updater(random_image.file).then(function()
@@ -282,6 +246,13 @@ job.start();
  
 }, 20000
 );
+  }
+  }
+  );    
+   
+
+  }, 10000
+  );     
     
  }
   offline();
