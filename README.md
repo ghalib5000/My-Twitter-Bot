@@ -1,8 +1,9 @@
 
-# Create your own auto direct message Twitter Bot 💬💬
-
 A twitter bot written in node.js that selects a random image from an array of large collection and post them
 on twitter with their possible respective hastag
+
+# Create your own auto direct message Twitter Bot 💬💬
+
 
 this one has pi support for led notifications
 
