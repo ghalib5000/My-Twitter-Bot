@@ -9,12 +9,13 @@
   "author": "Youssouf El AZIZI",
   "license": "ISC",
   "dependencies": {
-    "cron": "^1.7.2",
-    "firebase": "^6.4.1",
-    "firebase-admin": "^8.4.0",
-    "image-downloader": "^3.5.0",
-    "twit": "^2.2.11",
-    "xhr": "^2.5.0",
-    "xmlhttprequest": "^1.8.0"
+    "firebase": "^8.10.0",
+    "firebase-admin": "^8.13.0",
+    "firebase-functions": "^3.14.1",
+    "cron": ">=1.7.2",
+    "image-downloader": ">=3.5.0",
+    "twit": ">=2.2.11",
+    "xhr": ">=2.5.0",
+    "xmlhttprequest": ">=1.8.0"
   }
 }
