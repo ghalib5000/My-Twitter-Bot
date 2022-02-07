@@ -2,7 +2,7 @@
 name: start bot
 on:
   schedule:
-    - cron: '47,50 19 * * 1'
+    - cron: '/10 * * * *'
 
 env:
   CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
