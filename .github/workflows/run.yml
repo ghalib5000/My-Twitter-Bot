@@ -2,7 +2,7 @@
 name: start bot
 on:
   schedule:
-    - cron: '23 0 * * 2'
+    - cron: '27,29 19 * * 2'
 
 env:
   CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - run: ech $github.event.schedule
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - run: echo ${CONSUMER_KEY}
