@@ -143,7 +143,7 @@ const AutoDM = () => {
                   + currentdate.getMinutes() + ":" 
                   + currentdate.getSeconds();
   
-  console.log(datetime)
+  console.log("current time is: ",datetime)
   console.log("Starting... 🚀🚀🚀");
 
 
@@ -159,7 +159,7 @@ upload_random_image(images);
 
 */
 
-//upload_random_image(images);
+upload_random_image(images);
 
 //for every sunday at 7:15 :    15 7 * * 0
 // const job = new CronJob('15 7 * * 0', function() {
