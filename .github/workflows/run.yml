@@ -1,17 +1,22 @@
+---
 name: start bot
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps: 
-    - env:
-        CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
-    - name: installing packages
-    - run: npm i
-    - name: starting the bot
-    - run: npm start
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+      - env:
+          CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
+          CONSUMER_KEY_SECRET: ${{ secrets.CONSUMER_KEY_SECRET}}
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
+          ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
+          USERNAME: ${{secrets.USERNAME}}
+      - name: installing packages
+        run: npm i
+      - name: starting the bot
+        run: npm start
