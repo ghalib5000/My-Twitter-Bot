@@ -1,9 +1,8 @@
 ---
 name: start bot
 on:
-  push:
-    schedule:
-      - cron: '0 * * * *'
+  schedule:
+    - cron: '15 * * * *'
 
 env:
   CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
