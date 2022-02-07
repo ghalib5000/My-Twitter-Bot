@@ -1,8 +1,8 @@
 ---
 name: start bot
-on:
-  schedule:
-    - cron: '30 * * * *'
+on: push
+  #schedule:
+   # - cron: '30 * * * *'
 
 env:
   CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
@@ -15,6 +15,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get current date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d %HH:%MM:%SS')"
       - run: ech $github.event.schedule
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
