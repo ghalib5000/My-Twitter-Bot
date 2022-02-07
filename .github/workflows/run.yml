@@ -13,8 +13,8 @@ jobs:
       ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
       ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
       USERNAME:  ${{secrets.USERNAME}}
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v2
+      uses: actions/checkout@v2
+      uses: actions/setup-node@v2
     - name: installing packages
       run: npm i
     - name: starting the bot
