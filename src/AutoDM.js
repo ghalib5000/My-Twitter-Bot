@@ -70,8 +70,8 @@ const AutoDM = () => {
 
       dest: './'             // Save to /path/to/dest/image.jpg
     }
-    
-    
+
+
     console.log("donwloading image...");
     console.log("url: ",options.url);
     console.log("dest: ",options.dest);
@@ -124,7 +124,7 @@ const AutoDM = () => {
       console.log("image "+img+" found!, searching for another image...");
       img =  random_from_array(images).file;
       result = await checkIfImageExists(img);
-      
+
     }
     console.log("image not found, preparing to download image...");
     console.log("new name is :"+img);
@@ -154,13 +154,14 @@ upload_random_image(images);
 */
 
 
-//upload_random_image(images);
+upload_random_image(images);
+
 //for every sunday at 7:15 :    15 7 * * 0
-const job = new CronJob('15 7 * * 0', function() {
-	const d = new Date();
-  console.log('cron started at :', d);
-  upload_random_image(images);
-});
+// const job = new CronJob('15 7 * * 0', function() {
+// 	const d = new Date();
+//   console.log('cron started at :', d);
+//   upload_random_image(images);
+// });
 job.start();
 
   function random_from_array(images) {
@@ -174,7 +175,7 @@ job.start();
 
     console.log('Opening an image...');
 
-   
+
     let random_image = random_from_array(images);
     console.log("img name is : "+random_image.file);
     let result = await checkIfImageExists(random_image.file); // wait till the promise resolves (*)
@@ -182,10 +183,10 @@ job.start();
     while(result)
     {
       console.log("image "+random_image.file+" found!, searching for another image...");
-      
+
       random_image = random_from_array(images);
       result = await checkIfImageExists(random_image.file);
-      
+
     }
     var image_path = "./"
     console.log("image not found, preparing to download image...");
@@ -197,11 +198,11 @@ job.start();
 
     image_path = "./" +random_image.file ;
     console.log("final path is: " + image_path.toString());
-   
-  
+
+
     setTimeout(function()
     {
-      
+
       b64content = fs.readFileSync(image_path.toString() , { encoding: 'base64' });
 
   console.log('Uploading an image...');
@@ -217,7 +218,7 @@ job.start();
       console.log('Image uploaded!');
       console.log('Now tweeting it...');
 
- 
+
     var tweet_text = random_from_array([
           'New picture!',
           'Check this out!',
@@ -228,9 +229,9 @@ job.start();
         ]) + ' ' + random_image.source;
 
       T.post('statuses/update', {
-        // You can include text with your image as well.             
-        // status: 'New picture!', 
-        // Or you can pick random text from an array.            
+        // You can include text with your image as well.
+        // status: 'New picture!',
+        // Or you can pick random text from an array.
         status: tweet_text,
         media_ids: new Array(data.media_id_string)
       },
@@ -246,40 +247,40 @@ job.start();
       );
     }}
     );
-     
+
   }, 10000
   );
       setTimeout( function()
       {
-      
+
 
      console.log("now updating image number on the database");
      image_updater(random_image.file).then(function()
-     {  
-      console.log("done updating");  
+     {
+      console.log("done updating");
     console.log("removing " + random_image.file)
-        fs.unlink('./' + random_image.file, (err) => 
+        fs.unlink('./' + random_image.file, (err) =>
        {
           if (err) {
             console.error(err)
             return
           }
-        })  
+        })
      }).then(function()
      {
      offline();
-    }); 
-  
- 
+    });
+
+
 }, 20000
 );
-    
+
   }
   offline();
   /*
     //the main code for auto tweeting
     T.post(
-      'statuses/update', { status: 'This is being written by me' }, function(err, data, response) 
+      'statuses/update', { status: 'This is being written by me' }, function(err, data, response)
       {
       console.log(data)
       //console.log("this is going in here")
