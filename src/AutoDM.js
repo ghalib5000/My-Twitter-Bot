@@ -171,6 +171,8 @@ job.start();
   //random image selecting function
 
   async function upload_random_image(images) {
+    
+console.log(T.consumer_key)
     online();
 
     console.log('Opening an image...');
