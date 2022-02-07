@@ -16,6 +16,8 @@ jobs:
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
           ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
           USERNAME: ${{secrets.USERNAME}}
+      - run: echo CONSUMER_KEY
+      - run: echo $CONSUMER_KEY
       - name: installing packages
         run: npm i
       - name: starting the bot
