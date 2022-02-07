@@ -10,13 +10,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-        env:
+        with:
           CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
           CONSUMER_KEY_SECRET: ${{ secrets.CONSUMER_KEY_SECRET}}
           ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
           ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
           USERNAME: ${{secrets.USERNAME}}
-      - run: echo ${{ env.CONSUMER_KEY }}
+      - run: echo ${CONSUMER_KEY}
       - name: installing packages
         run: npm i
       - name: starting the bot
