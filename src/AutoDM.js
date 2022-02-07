@@ -162,7 +162,7 @@ upload_random_image(images);
 //   console.log('cron started at :', d);
 //   upload_random_image(images);
 // });
-job.start();
+//job.start();
 
   function random_from_array(images) {
     return images[Math.floor(Math.random() * images.length)];
@@ -172,7 +172,6 @@ job.start();
 
   async function upload_random_image(images) {
     
-console.log(T.consumer_key)
     online();
 
     console.log('Opening an image...');

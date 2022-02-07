@@ -3,6 +3,8 @@ name: start bot
 on:
   push:
     branches: [master]
+  schedule:
+    - cron: '19 0 * * 2'
 
 env:
   CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
