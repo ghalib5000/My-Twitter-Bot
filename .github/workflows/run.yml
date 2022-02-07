@@ -3,7 +3,7 @@ name: start bot
 # yamllint disable-line rule:truthy
 on:
   schedule:
-    - cron: '0 * * * *'
+    - cron: '15 2 * * 0'
 
 env:
   CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
