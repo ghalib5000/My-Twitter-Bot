@@ -1,5 +1,5 @@
 const Twit = require("twit");
-const config = require("../.github/workflows/config.js");
+const config = require("../config");
 const T = new Twit(config.twitterApp);
 
 module.exports = T;
