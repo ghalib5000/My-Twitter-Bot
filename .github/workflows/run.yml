@@ -3,6 +3,13 @@ name: start bot
 on:
   push:
     branches: [master]
+
+env:
+  CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
+  CONSUMER_KEY_SECRET: ${{ secrets.CONSUMER_KEY_SECRET}}
+  ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
+  ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
+  USERNAME: ${{secrets.USERNAME}}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -10,12 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-        with:
-          CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
-          CONSUMER_KEY_SECRET: ${{ secrets.CONSUMER_KEY_SECRET}}
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN}}
-          ACCESS_TOKEN_SECRET: ${{secrets.ACCESS_TOKEN_SECRET}}
-          USERNAME: ${{secrets.USERNAME}}
       - run: echo ${CONSUMER_KEY}
       - name: installing packages
         run: npm i
