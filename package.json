@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "firebase": "^8.10.0",
-    "firebase-admin": "^11.2.0",
-    "firebase-functions": "^3.14.1",
+    "firebase-admin": "^11.4.1",
+    "firebase-functions": "^3.24.1",
     "cron": ">=1.7.2",
     "image-downloader": ">=3.5.0",
     "twit": ">=2.2.11",
